@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://b31o20cybegp"]
+
+[ext_resource type="Script" uid="uid://bpj1orcabcyug" path="res://scripts/player/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://tpopuy20xbjf" path="res://assets/Anchilosauro.png" id="2_fjrip"]
+[ext_resource type="Script" uid="uid://cwuoo6xpl1k5q" path="res://scripts/state_machine/node_state_machine.gd" id="2_g2els"]
+[ext_resource type="Script" uid="uid://h37s5xr4rmkd" path="res://scripts/player/idle_state.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://du71sk0teyufl" path="res://scripts/player/walking_state.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://baycjqr03r5nn" path="res://scripts/player/charge_state.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://d276yrnqnlt84" path="res://scripts/player/attack_state.gd" id="6_tuyoq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8vuu"]
+radius = 9.0
+height = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
+radius = 3.0
+
+[node name="Player" type="CharacterBody2D" unique_id=2007503679 groups=["player"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_3vyb7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1244548585]
+texture = ExtResource("2_fjrip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1061584201]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_u8vuu")
+
+[node name="TailPivot" type="Node2D" parent="." unique_id=1951843]
+position = Vector2(-13, 0)
+
+[node name="TailSprite" type="Sprite2D" parent="TailPivot" unique_id=1885515389]
+
+[node name="TailHitbox" type="Area2D" parent="TailPivot" unique_id=2132453487]
+collision_layer = 8
+collision_mask = 4
+
+[node name="TailCollision" type="CollisionShape2D" parent="TailPivot/TailHitbox" unique_id=1474941477]
+position = Vector2(11, 0)
+shape = SubResource("CircleShape2D_tuyoq")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1609802578]
+script = ExtResource("2_g2els")
+
+[node name="IdleState" type="Node" parent="StateMachine" unique_id=1658452476]
+script = ExtResource("3_qhqgy")
+
+[node name="WalkingState" type="Node" parent="StateMachine" unique_id=459220245]
+script = ExtResource("4_dqkch")
+
+[node name="ChargeState" type="Node" parent="StateMachine" unique_id=253846597]
+script = ExtResource("5_qlg0r")
+
+[node name="AttackState" type="Node" parent="StateMachine" unique_id=593722474]
+script = ExtResource("6_tuyoq")
