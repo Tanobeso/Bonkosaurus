@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://tpopuy20xbjf" path="res://assets/Anchilosauro.png" id="2_fjrip"]
 [ext_resource type="Script" uid="uid://cwuoo6xpl1k5q" path="res://scripts/state_machine/node_state_machine.gd" id="2_g2els"]
 [ext_resource type="Script" uid="uid://h37s5xr4rmkd" path="res://scripts/player/idle_state.gd" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://cmaefscgloxok" path="res://assets/Coda.png" id="3_smehm"]
 [ext_resource type="Script" uid="uid://du71sk0teyufl" path="res://scripts/player/walking_state.gd" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://baycjqr03r5nn" path="res://scripts/player/charge_state.gd" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://d276yrnqnlt84" path="res://scripts/player/attack_state.gd" id="6_tuyoq"]
@@ -31,6 +32,8 @@ shape = SubResource("CapsuleShape2D_u8vuu")
 position = Vector2(-13, 0)
 
 [node name="TailSprite" type="Sprite2D" parent="TailPivot" unique_id=1885515389]
+position = Vector2(6, 0)
+texture = ExtResource("3_smehm")
 
 [node name="TailHitbox" type="Area2D" parent="TailPivot" unique_id=2132453487]
 collision_layer = 8
@@ -40,17 +43,24 @@ collision_mask = 4
 position = Vector2(11, 0)
 shape = SubResource("CircleShape2D_tuyoq")
 
-[node name="StateMachine" type="Node" parent="." unique_id=1609802578]
+[node name="StateMachine" type="Node" parent="." unique_id=1609802578 node_paths=PackedStringArray("initial_node_state")]
 script = ExtResource("2_g2els")
+initial_node_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="StateMachine" unique_id=1658452476]
+[node name="IdleState" type="Node" parent="StateMachine" unique_id=1658452476 node_paths=PackedStringArray("player")]
 script = ExtResource("3_qhqgy")
+player = NodePath("../..")
 
-[node name="WalkingState" type="Node" parent="StateMachine" unique_id=459220245]
+[node name="WalkingState" type="Node" parent="StateMachine" unique_id=459220245 node_paths=PackedStringArray("player")]
 script = ExtResource("4_dqkch")
+player = NodePath("../..")
 
-[node name="ChargeState" type="Node" parent="StateMachine" unique_id=253846597]
+[node name="ChargeState" type="Node" parent="StateMachine" unique_id=253846597 node_paths=PackedStringArray("player")]
 script = ExtResource("5_qlg0r")
+player = NodePath("../..")
 
-[node name="AttackState" type="Node" parent="StateMachine" unique_id=593722474]
+[node name="AttackState" type="Node" parent="StateMachine" unique_id=593722474 node_paths=PackedStringArray("player", "tail_hitbox", "tail_hitbox_shape")]
 script = ExtResource("6_tuyoq")
+player = NodePath("../..")
+tail_hitbox = NodePath("../../TailPivot/TailHitbox")
+tail_hitbox_shape = NodePath("../../TailPivot/TailHitbox/TailCollision")

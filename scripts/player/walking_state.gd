@@ -2,6 +2,9 @@ extends NodeState
 
 @export var player: CharacterBody2D
 
+func _on_enter() -> void:
+	print("Walk statess")
+
 func _on_physics_process(delta: float) -> void:
 	var input_dir: Vector2 = GameInputEvents.movement_input()
 
@@ -16,6 +19,6 @@ func _on_physics_process(delta: float) -> void:
 
 func _on_next_transitions() -> void:
 	if GameInputEvents.is_attacking():
-		transition.emit("Charge")
-	elif !GameInputEvents.is_movement_input() and player.velocity.length() < 10.0:
-		transition.emit("Idle")
+		transition.emit("ChargeState")
+	elif !GameInputEvents.is_movement_input():
+		transition.emit("IdleState")

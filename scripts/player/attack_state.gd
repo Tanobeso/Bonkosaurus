@@ -27,9 +27,9 @@ func _on_physics_process(delta: float) -> void:
 func _on_next_transitions() -> void:
 	if attack_timer <= 0.0:
 		if GameInputEvents.is_movement_input():
-			transition.emit("Walk")
+			transition.emit("WalkingState")
 		else:
-			transition.emit("Idle")
+			transition.emit("IdleState")
 
 func _on_exit() -> void:
 	if tail_hitbox_shape:

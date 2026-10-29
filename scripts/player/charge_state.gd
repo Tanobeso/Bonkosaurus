@@ -20,4 +20,4 @@ func _on_physics_process(delta: float) -> void:
 func _on_next_transitions() -> void:
 	if GameInputEvents.is_attack_just_released():
 		player.last_charge_amount = current_charge
-		transition.emit("Attack")
+		transition.emit("AttackState")

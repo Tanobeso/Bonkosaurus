@@ -9,6 +9,6 @@ func _on_physics_process(delta: float) -> void:
 
 func _on_next_transitions() -> void:
 	if GameInputEvents.is_attacking():
-		transition.emit("Charge")
+		transition.emit("ChargeState")
 	elif GameInputEvents.is_movement_input():
-		transition.emit("Walk")
+		transition.emit("WalkingState")

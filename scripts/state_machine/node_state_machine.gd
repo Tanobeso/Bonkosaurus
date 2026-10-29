@@ -35,3 +35,6 @@ func _on_state_transition(target_state_name: String) -> void:
 
 	current_node_state = new_state
 	current_node_state._on_enter()
+	
+	current_node_state = new_state
+	print("Current State: ", current_node_state.name)
